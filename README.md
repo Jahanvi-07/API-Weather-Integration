@@ -5,14 +5,14 @@
 The Weather App is a responsive web application that allows users to check current weather conditions for any city or their current location using real-time data fetched from the OpenWeatherMap API. Built with HTML, CSS, and JavaScript, the app combines a clean user interface with dynamic functionality to deliver a seamless weather-checking experience.
 
 **Key Features:**
-•	Search by City Name
-•	Use My Location (Geolocation API)
-•	Feels Like Temperature
-•	Humidity & Wind Speed
-•	Recent Search History (localStorage)
-•	Dark/Light Mode Toggle
-•	Dynamic Weather Icons (based on conditions)
-•	Loading Spinner Animation during API fetch
+•	Search by City Name | 
+•	Use My Location (Geolocation API) | 
+•	Feels Like Temperature | 
+•	Humidity & Wind Speed | 
+•	Recent Search History (localStorage) | 
+•	Dark/Light Mode Toggle | 
+•	Dynamic Weather Icons (based on conditions) | 
+•	Loading Spinner Animation during API fetch | 
 
 **Tech Stack:**
 | Component        | Technology Used                        |
