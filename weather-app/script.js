@@ -1,102 +1,93 @@
 const apiKey = '64edae56aacd9863630a5e0927b9e60c'; // 🔁 Replace with your actual OpenWeatherMap API key
 
 // Get weather by city name
-async function getWeather() {
-  const city = document.getElementById('cityInput').value.trim();
+function showLoader(show) {
+  document.getElementById("loader").style.display = show ? "block" : "none";
+}
 
-  if (city === '') {
-    document.getElementById('weatherData').innerHTML = '<p style="color: red;">Please enter a city name.</p>';
+function getWeather(city) {
+  const cityInput = city || document.getElementById("cityInput").value.trim();
+  if (!cityInput) return;
+
+  showLoader(true);
+  const url = `https://api.openweathermap.org/data/2.5/weather?q=${cityInput}&appid=${apiKey}&units=metric`;
+
+  fetch(url)
+    .then(res => {
+      if (!res.ok) throw new Error("City not found");
+      return res.json();
+    })
+    .then(data => {
+      displayWeather(data);
+      saveSearch(cityInput);
+    })
+    .catch(err => alert(err.message))
+    .finally(() => showLoader(false));
+}
+
+function getLocationWeather() {
+  if (!navigator.geolocation) {
+    alert("Geolocation not supported");
     return;
   }
 
-  const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`;
+  showLoader(true);
+  navigator.geolocation.getCurrentPosition(
+    (pos) => {
+      const { latitude, longitude } = pos.coords;
+      const url = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=metric`;
 
-  document.getElementById('loader').style.display = 'block';
-  document.getElementById('weatherData').innerHTML = '';
-
-  try {
-    const response = await fetch(url);
-    if (!response.ok) throw new Error('City not found');
-
-    const data = await response.json();
-    displayWeather(data);
-    saveSearch(data.name);
-  } catch (error) {
-    document.getElementById('weatherData').innerHTML = `<p style="color: red;">${error.message}</p>`;
-  } finally {
-    document.getElementById('loader').style.display = 'none';
-  }
+      fetch(url)
+        .then(res => res.json())
+        .then(data => {
+          displayWeather(data);
+          saveSearch(data.name);
+        })
+        .catch(err => alert("Failed to fetch location weather"))
+        .finally(() => showLoader(false));
+    },
+    () => {
+      showLoader(false);
+      alert("Location access denied");
+    }
+  );
 }
 
-// Get weather by current location
-async function getLocationWeather() {
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(async (position) => {
-      const lat = position.coords.latitude;
-      const lon = position.coords.longitude;
-      const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${apiKey}`;
-
-      document.getElementById('loader').style.display = 'block';
-      document.getElementById('weatherData').innerHTML = '';
-
-      try {
-        const response = await fetch(url);
-        const data = await response.json();
-        displayWeather(data);
-        saveSearch(data.name);
-      } catch (error) {
-        document.getElementById('weatherData').innerHTML = `<p style="color: red;">Failed to fetch weather.</p>`;
-      } finally {
-        document.getElementById('loader').style.display = 'none';
-      }
-    }, () => {
-      alert('Location access denied.');
-    });
-  } else {
-    alert('Geolocation not supported by your browser.');
-  }
-}
-
-// Display weather data on screen
 function displayWeather(data) {
-  const icon = data.weather[0].icon;
-  const iconUrl = `http://openweathermap.org/img/wn/${icon}@2x.png`;
-
-  document.getElementById('weatherData').innerHTML = `
-    <h2>${data.name}, ${data.sys.country}</h2>
-    <p><img src="${iconUrl}" alt="Icon"> Condition: ${data.weather[0].description}</p>
-    <p>Temperature: ${data.main.temp}°C (Feels like ${data.main.feels_like}°C)</p>
-    <p>Humidity: ${data.main.humidity}%</p>
-    <p>Wind: ${data.wind.speed} m/s</p>
-  `;
+  document.getElementById("weatherCard").style.display = "block";
+  document.getElementById("cityName").innerText = data.name;
+  document.getElementById("description").innerText = data.weather[0].description;
+  document.getElementById("temp").innerText = data.main.temp;
+  document.getElementById("feels_like").innerText = data.main.feels_like;
+  document.getElementById("humidity").innerText = data.main.humidity;
+  document.getElementById("wind").innerText = data.wind.speed;
+  document.getElementById("weatherIcon").src = `https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`;
 }
 
-// Save recent search to localStorage
 function saveSearch(city) {
-  let history = JSON.parse(localStorage.getItem('history')) || [];
-  if (!history.includes(city)) {
-    history.unshift(city);
-    if (history.length > 5) history.pop();
-    localStorage.setItem('history', JSON.stringify(history));
+  let searches = JSON.parse(localStorage.getItem("weatherSearches")) || [];
+  if (!searches.includes(city)) {
+    searches.push(city);
+    localStorage.setItem("weatherSearches", JSON.stringify(searches));
     renderSearchHistory();
   }
 }
 
-// Render search history
 function renderSearchHistory() {
-  const history = JSON.parse(localStorage.getItem('history')) || [];
-  const container = document.getElementById('searchHistory');
-  container.innerHTML = `<h3>Previous Searches</h3>`;
-  history.forEach(city => {
-    const btn = document.createElement('button');
-    btn.textContent = city;
-    btn.onclick = () => {
-      document.getElementById('cityInput').value = city;
-      getWeather();
-    };
-    container.appendChild(btn);
+  let searches = JSON.parse(localStorage.getItem("weatherSearches")) || [];
+  const list = document.getElementById("searchHistory");
+  list.innerHTML = "";
+  searches.slice().reverse().forEach(city => {
+    const li = document.createElement("li");
+    li.textContent = city;
+    li.onclick = () => getWeather(city);
+    list.appendChild(li);
   });
 }
 
-// Load history on page load
+document.getElementById("themeSwitch").addEventListener("change", (e) => {
+  document.body.classList.toggle("dark", e.target.checked);
+  document.getElementById("themeLabel").textContent = e.target.checked ? "☀️ Light Mode" : "🌙 Dark Mode";
+});
+
 window.onload = renderSearchHistory;
