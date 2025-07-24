@@ -37,6 +37,13 @@ The Weather App is a responsive web application that allows users to check curre
 **Light Themed:**
 <img width="1918" height="1089" alt="Image" src="https://github.com/user-attachments/assets/a78a0873-6a46-45e0-ad11-d56616611b18" />
 
-**Light Themed:(with gps)**
+**Light Themed(with gps):**
 <img width="1913" height="1085" alt="Image" src="https://github.com/user-attachments/assets/81a298e1-10da-4f0d-8286-34a5d4d85d90" />
+
+**Dark Themed:**
+<img width="1894" height="1084" alt="Image" src="https://github.com/user-attachments/assets/c007e720-c05a-437d-99f2-78a61ef07744" />
+
+**Dark Themed(with gps):**
+<img width="1911" height="1083" alt="Image" src="https://github.com/user-attachments/assets/5c4945a8-8c1a-46bd-a900-ec36c723582f" />
+
 
