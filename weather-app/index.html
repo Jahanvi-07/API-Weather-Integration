@@ -8,16 +8,38 @@
 </head>
 <body>
   <div class="container">
-    <h1>🌦️ Weather App</h1>
+    <div class="theme-toggle">
+      <label class="switch">
+        <input type="checkbox" id="themeSwitch" />
+        <span class="slider"></span>
+      </label>
+      <span id="themeLabel">🌙 Dark Mode</span>
+    </div>
 
-    <input type="text" id="cityInput" placeholder="Enter city name" />
-    <button onclick="getWeather()">Get Weather</button>
-    <button onclick="getLocationWeather()">Use My Location</button>
+    <h1>🌤️ Weather App</h1>
+
+    <div class="search-box">
+      <input type="text" id="cityInput" placeholder="Enter city name" />
+      <button onclick="getWeather()">Get Weather</button>
+      <button onclick="getLocationWeather()">📍 Use My Location</button>
+    </div>
 
     <div id="loader" class="loader" style="display: none;"></div>
 
-    <div id="weatherData" class="weather-card"></div>
-    <div id="searchHistory" class="history-box"></div>
+    <div class="weather-card" id="weatherCard" style="display: none;">
+      <h2 id="cityName"></h2>
+      <img id="weatherIcon" alt="weather icon" />
+      <p id="description"></p>
+      <p><strong>Temperature:</strong> <span id="temp"></span> °C</p>
+      <p><strong>Feels Like:</strong> <span id="feels_like"></span> °C</p>
+      <p><strong>Humidity:</strong> <span id="humidity"></span>%</p>
+      <p><strong>Wind Speed:</strong> <span id="wind"></span> m/s</p>
+    </div>
+
+    <div class="history">
+      <h3>Previous Searches</h3>
+      <ul id="searchHistory"></ul>
+    </div>
   </div>
 
   <script src="script.js"></script>
