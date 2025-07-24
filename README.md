@@ -34,4 +34,9 @@ The Weather App is a responsive web application that allows users to check curre
 •	Building responsive and accessible UIs using semantic HTML & CSS
 •	Managing state and DOM manipulation effectively
 
+**Light Themed:**
+<img width="1918" height="1089" alt="Image" src="https://github.com/user-attachments/assets/a78a0873-6a46-45e0-ad11-d56616611b18" />
+
+**Light Themed:(with gps)**
+<img width="1913" height="1085" alt="Image" src="https://github.com/user-attachments/assets/81a298e1-10da-4f0d-8286-34a5d4d85d90" />
 
