@@ -1,10 +1,10 @@
 # API-Weather-Integration
 **🌤️ Weather App** 
 
-**Overview:**
+## **Overview:**
 The Weather App is a responsive web application that allows users to check current weather conditions for any city or their current location using real-time data fetched from the OpenWeatherMap API. Built with HTML, CSS, and JavaScript, the app combines a clean user interface with dynamic functionality to deliver a seamless weather-checking experience.
 
-**Key Features:**
+## **Key Features:**
 *	Search by City Name 
 *	Use My Location (Geolocation API) 
 *	Feels Like Temperature 
@@ -14,7 +14,7 @@ The Weather App is a responsive web application that allows users to check curre
 *	Dynamic Weather Icons (based on conditions) 
 *	Loading Spinner Animation during API fetch  
 
-**Tech Stack:**
+## **Tech Stack:**
 | Component        | Technology Used                        |
 | ---------------- | -------------------------------------- |
 | Frontend         | HTML, CSS (custom styling), JavaScript |
@@ -24,7 +24,7 @@ The Weather App is a responsive web application that allows users to check curre
 | Theming & UI     | CSS Transitions, Theme Toggle, Icons   |
 
 
-**Highlights:**
+## **Highlights:**
 *	API Integration and error handling in JavaScript
 *	Working with real-time data and asynchronous JavaScript (async/await)
 *	Using browser APIs like Geolocation and localStorage
@@ -33,6 +33,9 @@ The Weather App is a responsive web application that allows users to check curre
 * Introduced loading animation (spinner) for better UX during API calls
 *	Building responsive and accessible UIs using semantic HTML & CSS
 *	Managing state and DOM manipulation effectively
+
+
+## **📸 Screenshots:**
 
 * *Light Themed:*
 <img width="1918" height="1089" alt="Image" src="https://github.com/user-attachments/assets/a78a0873-6a46-45e0-ad11-d56616611b18" />
